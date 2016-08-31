@@ -1,0 +1,25 @@
+{
+  "name": "barrt-wrk",
+  "version": "0.0.1",
+  "description": "wrk support for BARRT (A Bash Rspec-like Regression Test Framework)",
+  "main": "setup.sh",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mwolson/barrt-wrk.git"
+  },
+  "author": "Michael Olson <mwolson@member.fsf.org>",
+  "license": "MIT",
+  "keywords": [
+    "bash",
+    "wrk",
+    "shell",
+    "test",
+    "rspec"
+  ],
+  "dependencies": {},
+  "peerDependencies": {
+    "barrt": "*"
+  },
+  "devDependencies": {}
+}
