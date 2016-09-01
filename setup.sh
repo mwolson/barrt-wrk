@@ -32,6 +32,10 @@ function get_wrk_socket_errors() {
     <<< "$wrk_output" grep -i 'socket errors' | sed 's/^ *//'
 }
 
+function get_wrk_failed_requests() {
+    <<< "$wrk_output" grep -i 'Non-2xx or 3xx responses: ' | sed 's/.*: +([0-9]+) *$/\1/'
+}
+
 function get_wrk_total_requests() {
     <<< "$wrk_output" grep -i 'requests in' | sed 's/^ *([0-9]+) +requests in.*/\1/'
 }
@@ -41,6 +45,13 @@ function expect_wrk_socket_errors() {
     define_side_a "$dropped"
     define_side_a_text "socket errors counted by wrk"
     define_addl_text "wrk socket errors:\n${dropped}\n\nwrk output:\n$wrk_output"
+}
+
+function expect_wrk_failed_requests() {
+    local failed=$(get_wrk_failed_requests)
+    define_side_a "$failed"
+    define_side_a_text "failed requests counted by wrk"
+    define_addl_text "failed requests: ${failed}\n\nwrk output:\n$wrk_output"
 }
 
 function expect_wrk_total_requests() {

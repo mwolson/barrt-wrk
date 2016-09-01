@@ -44,11 +44,15 @@ The following are provided as bash functions:
 
 `expect_wrk_socket_errors`
 
+`expect_wrk_failed_requests`
+
 `expect_wrk_total_requests`
 
 ### Accessing parts of the response
 
 `get_wrk_socket_errors`
+
+`get_wrk_failed_requests`
 
 `get_wrk_total_requests`
 
