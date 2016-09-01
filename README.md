@@ -60,6 +60,8 @@ The following are provided as bash functions:
 
 `inspect_next_wrk`
 
+`get_wrk_os_x_safe_connection_limit`
+
 ## License
 
 MIT

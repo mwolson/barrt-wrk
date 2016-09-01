@@ -28,6 +28,16 @@ function record_wrk() {
     fi
 }
 
+function get_wrk_os_x_safe_connection_limit() {
+    local rst_limit=$(sysctl net.inet.icmp.icmplim | awk '{ print $2; }')
+    local with_safety_margin=$(($rst_limit / 2))
+    if test $with_safety_margin -gt 500; then
+        echo 500
+    else
+        echo $with_safety_margin
+    fi
+}
+
 function get_wrk_socket_errors() {
     <<< "$wrk_output" grep -i 'socket errors' | sed 's/^ *//'
 }
