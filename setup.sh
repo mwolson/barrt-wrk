@@ -28,9 +28,24 @@ function record_wrk() {
     fi
 }
 
+function get_wrk_socket_errors() {
+    <<< "$wrk_output" grep -i 'socket errors' | sed 's/^ *//'
+}
+
+function get_wrk_total_requests() {
+    <<< "$wrk_output" grep -i 'requests in' | sed 's/^ *([0-9]+) +requests in.*/\1/'
+}
+
 function expect_wrk_socket_errors() {
-    local dropped=$(<<< "$wrk_output" grep -i 'socket errors' | sed 's/^ +//')
+    local dropped=$(get_wrk_socket_errors)
     define_side_a "$dropped"
-    define_side_a_text "number of socket errors counted by wrk"
+    define_side_a_text "socket errors counted by wrk"
     define_addl_text "wrk socket errors:\n${dropped}\n\nwrk output:\n$wrk_output"
+}
+
+function expect_wrk_total_requests() {
+    local requests=$(get_wrk_total_requests)
+    define_side_a "$requests"
+    define_side_a_text "total requests made by wrk"
+    define_addl_text "total requests: ${requests}\n\nwrk output:\n$wrk_output"
 }
